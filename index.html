@@ -23,7 +23,7 @@
 
     h1 {
       font-size: 2rem;
-      color: #444;
+      color: white; /* Change the name color to white */
     }
 
     header {
@@ -295,31 +295,5 @@
 
     decrementButton.addEventListener('click', () => {
       count--;
-      updateCounter();
-    });
+      updateCounter
 
-    const familyInput = document.getElementById('family-input');
-    const addFamilyButton = document.getElementById('add-family-btn');
-    const familyList = document.getElementById('family-list');
-
-    function addFamilyMember() {
-      const familyName = familyInput.value.trim();
-      if (familyName !== "") {
-        const listItem = document.createElement('li');
-        listItem.textContent = familyName;
-        familyList.appendChild(listItem);
-        familyInput.value = '';
-      }
-    }
-
-    addFamilyButton.addEventListener('click', addFamilyMember);
-    familyInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        addFamilyMember();
-      }
-    });
-  </script>
-
-</body>
-
-</html>
