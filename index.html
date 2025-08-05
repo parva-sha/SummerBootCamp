@@ -35,16 +35,17 @@
     <img src="https://www.computersciencedegreehub.com/wp-content/uploads/2023/02/shutterstock_535124956-scaled.jpg"
      alt="homepagesmoothie" 
      id="me"
-     style="width:30%"
-     margain: 0 auto;
-     height: auto;
-     border-radius:20px; >
+     style="width:30%; margin: 0 auto; height: auto; border-radius:20px;">
 
     <div class="content">
       <!--This is content card 1-->
       <div class="card">
         <h1>Javascript counter</h1>
         <p>Press the buttons below to add or remove from count</p>
+        <div id="counter-display">0</div> <!-- Display the counter here -->
+        <!-- Buttons to control counter -->
+        <button id="increment-btn">Increment</button>
+        <button id="decrement-btn">Decrement</button>
       </div>
       <!--This is content card 2-->
       <div class="card">
@@ -77,6 +78,36 @@
       <p>Phone: 208-747-6464</p>
     </div>
   </footer>
+
+  <script>
+    // Initialize the counter variable
+    let count = 0;
+
+    // Get the display element to show the counter value
+    const counterDisplay = document.getElementById('counter-display');
+
+    // Get the buttons
+    const incrementButton = document.getElementById('increment-btn');
+    const decrementButton = document.getElementById('decrement-btn');
+
+    // Function to update the counter display
+    function updateCounter() {
+      counterDisplay.textContent = count; // Set the text of the counter display
+    }
+
+    // Event listener for the increment button
+    incrementButton.addEventListener('click', () => {
+      count++; // Increase the counter by 1
+      updateCounter(); // Update the displayed counter value
+    });
+
+    // Event listener for the decrement button
+    decrementButton.addEventListener('click', () => {
+      count--; // Decrease the counter by 1
+      updateCounter(); // Update the displayed counter value
+    });
+  </script>
+
 </body>
 
 </html>
