@@ -211,6 +211,51 @@
       transform: scale(1.2);
     }
 
+    /* Shooting Game Styles */
+    .game-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background-color: #ddd;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .shooter {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      background-color: #2c3e50;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .object {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+      animation: fall 2s infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -50px;
+      }
+      100% {
+        top: 400px;
+      }
+    }
+
+    .hit {
+      background-color: #ff5722;
+    }
+
     /* Responsive styles */
     @media (max-width: 768px) {
       header {
@@ -252,12 +297,12 @@
       <div class="card">
         <h1>Javascript Counter</h1>
         <p>Press the buttons below to add or remove from count</p>
-        <div id="counter-display">0</div>
+        <div id="counter-display">0</div> <!-- Display the counter here -->
         <button id="increment-btn">Increment</button>
         <button id="decrement-btn">Decrement</button>
       </div>
 
-      <!-- Family Member Card -->
+      <!-- Family Members Card -->
       <div class="card">
         <h1>Family Members</h1>
         <p>Use the input below to add family members onto a list on the page</p>
@@ -273,8 +318,19 @@
         <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
         <button id="guess-btn">Guess</button>
         <p id="result-message"></p>
-        <p id="try-count"></p>
-        <p id="high-score"></p> <!-- High score display -->
+        <p id="try-count"></p> <!-- Display the number of tries here -->
+        <p id="high-score"></p> <!-- Display high score for tries -->
+      </div>
+
+      <!-- Shooting Game Card -->
+      <div class="card">
+        <h1>Shooting Game</h1>
+        <p>Use the left and right arrow keys to dodge incoming objects! Survive for as long as possible!</p>
+        <div class="game-container">
+          <div class="shooter" id="shooter"></div>
+        </div>
+        <p id="game-result"></p>
+        <p id="game-high-score"></p>
       </div>
     </div>
   </main>
@@ -282,7 +338,7 @@
   <footer>
     <div class="gitHub">
       <b>GitHub</b>
-      <p><a href="#">My GitHub</a></p>
+      <p><a href="">My GitHub</a></p>
     </div>
     <div class="my_information">
       <p>Social Media</p>
@@ -298,79 +354,87 @@
   </footer>
 
   <script>
-    // JavaScript code for Counter and Family Member List
-    let count = 0;
-    const counterDisplay = document.getElementById('counter-display');
-    const incrementButton = document.getElementById('increment-btn');
-    const decrementButton = document.getElementById('decrement-btn');
+    // Shooter Game Logic
+    const gameContainer = document.querySelector(".game-container");
+    const shooter = document.getElementById("shooter");
+    const gameResult = document.getElementById("game-result");
+    const gameHighScore = document.getElementById("game-high-score");
 
-    function updateCounter() {
-      counterDisplay.textContent = count;
+    let shooterPosition = 50;
+    let alive = true;
+    let hitCount = 0;
+    let survivalTime = 0;
+    let gameInterval, objectInterval;
+
+    // Load high score from localStorage
+    let highSurvivalTime = localStorage.getItem('highSurvivalTime');
+    if (!highSurvivalTime) {
+      highSurvivalTime = 0;
     }
+    gameHighScore.textContent = `High Survival Time: ${highSurvivalTime}s`;
 
-    incrementButton.addEventListener('click', () => {
-      count++;
-      updateCounter();
-    });
-
-    decrementButton.addEventListener('click', () => {
-      count--;
-      updateCounter();
-    });
-
-    // Family members list logic
-    const familyInput = document.getElementById('family-input');
-    const addFamilyBtn = document.getElementById('add-family-btn');
-    const familyList = document.getElementById('family-list');
-
-    addFamilyBtn.addEventListener('click', () => {
-      const familyMember = familyInput.value;
-      if (familyMember) {
-        const listItem = document.createElement('li');
-        listItem.textContent = familyMember;
-        familyList.appendChild(listItem);
-        familyInput.value = ''; // Clear the input
+    // Move the shooter
+    function moveShooter(e) {
+      if (e.key === "ArrowLeft" && shooterPosition > 0) {
+        shooterPosition -= 5;
+      } else if (e.key === "ArrowRight" && shooterPosition < 100) {
+        shooterPosition += 5;
       }
-    });
-
-    // Number Guessing Game logic
-    const guessInput = document.getElementById('guess-input');
-    const guessBtn = document.getElementById('guess-btn');
-    const resultMessage = document.getElementById('result-message');
-    const tryCountDisplay = document.getElementById('try-count');
-    const highScoreDisplay = document.getElementById('high-score');
-
-    let randomNumber = Math.floor(Math.random() * 100) + 1;
-    let attempts = 0;
-
-    // Load high score from local storage
-    let highScore = localStorage.getItem('highScore');
-    if (!highScore) {
-      highScore = Infinity; // No high score, set it to Infinity initially
+      shooter.style.left = `${shooterPosition}%`;
     }
-    highScoreDisplay.textContent = `High Score: ${highScore} tries`;
 
-    guessBtn.addEventListener('click', () => {
-      const userGuess = parseInt(guessInput.value);
-      attempts++; // Increment attempts on every guess
+    // Spawn falling objects
+    function spawnObject() {
+      const object = document.createElement("div");
+      object.classList.add("object");
+      object.style.left = `${Math.random() * 100}%`;
+      gameContainer.appendChild(object);
 
-      if (userGuess < randomNumber) {
-        resultMessage.textContent = 'Too low! Try again.';
-      } else if (userGuess > randomNumber) {
-        resultMessage.textContent = 'Too high! Try again.';
-      } else {
-        resultMessage.textContent = 'Correct! You guessed the number!';
-        tryCountDisplay.textContent = `It took you ${attempts} tries.`;
+      // Detect collision with the shooter
+      object.addEventListener("animationiteration", () => {
+        object.remove();
+        if (parseInt(object.style.left) >= shooterPosition - 5 && parseInt(object.style.left) <= shooterPosition + 5) {
+          hitCount++;
+          if (hitCount >= 3) {
+            alive = false;
+            gameResult.textContent = `Game Over! You were hit 3 times.`;
+            clearInterval(gameInterval);
+            clearInterval(objectInterval);
+          }
+        }
+      });
+    }
 
-        // Update high score
-        if (attempts < highScore) {
-          highScore = attempts;
-          localStorage.setItem('highScore', highScore); // Save to localStorage
-          highScoreDisplay.textContent = `High Score: ${highScore} tries`;
+    // Game loop
+    function gameLoop() {
+      if (alive) {
+        survivalTime++;
+        gameResult.textContent = `Survival Time: ${survivalTime}s`;
+      }
+
+      if (!alive) {
+        // Save the high score
+        if (survivalTime > highSurvivalTime) {
+          highSurvivalTime = survivalTime;
+          localStorage.setItem('highSurvivalTime', highSurvivalTime);
+          gameHighScore.textContent = `High Survival Time: ${highSurvivalTime}s`;
         }
       }
-      guessInput.value = ''; // Clear the input after guessing
-    });
+    }
+
+    // Start the game
+    function startGame() {
+      if (alive) {
+        gameInterval = setInterval(gameLoop, 1000); // Update survival time
+        objectInterval = setInterval(spawnObject, 2000); // Spawn objects every 2 seconds
+      }
+    }
+
+    // Listen for shooter movement
+    window.addEventListener("keydown", moveShooter);
+
+    // Initialize the game
+    startGame();
   </script>
 </body>
 
