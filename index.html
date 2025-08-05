@@ -23,7 +23,7 @@
 
     h1 {
       font-size: 2rem;
-      color: white; /* Change the name color to white */
+      color: white;
     }
 
     header {
@@ -255,6 +255,7 @@
         <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
         <button id="guess-btn">Guess</button>
         <p id="result-message"></p>
+        <p id="try-count"></p> <!-- Display the number of tries here -->
       </div>
     </div>
   </main>
@@ -322,17 +323,22 @@
     const guessInput = document.getElementById('guess-input');
     const guessBtn = document.getElementById('guess-btn');
     const resultMessage = document.getElementById('result-message');
+    const tryCountDisplay = document.getElementById('try-count');
 
     let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
 
     guessBtn.addEventListener('click', () => {
       const userGuess = parseInt(guessInput.value);
+      attempts++; // Increment attempts on every guess
+
       if (userGuess < randomNumber) {
         resultMessage.textContent = 'Too low! Try again.';
       } else if (userGuess > randomNumber) {
         resultMessage.textContent = 'Too high! Try again.';
       } else {
         resultMessage.textContent = 'Correct! You guessed the number!';
+        tryCountDisplay.textContent = `It took you ${attempts} tries.`;
       }
       guessInput.value = ''; // Clear the input after guessing
     });
