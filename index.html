@@ -31,14 +31,14 @@
 
   <main>
 
-    <!--Add a picture to your website here.-->
+    <!-- Add a picture to your website here. -->
     <img src="https://www.computersciencedegreehub.com/wp-content/uploads/2023/02/shutterstock_535124956-scaled.jpg"
      alt="homepagesmoothie" 
      id="me"
      style="width:30%; margin: 0 auto; height: auto; border-radius:20px;">
 
     <div class="content">
-      <!--This is content card 1-->
+      <!-- This is content card 1 -->
       <div class="card">
         <h1>Javascript counter</h1>
         <p>Press the buttons below to add or remove from count</p>
@@ -47,17 +47,27 @@
         <button id="increment-btn">Increment</button>
         <button id="decrement-btn">Decrement</button>
       </div>
-      <!--This is content card 2-->
+
+      <!-- This is content card 2 -->
       <div class="card">
+        <h1>Family members</h1>
+        <p>Use the input below to add family members onto a list on the page</p>
+        <!-- Input field for family member -->
+        <input type="text" id="family-input" placeholder="Enter family member's name">
+        <!-- Button to add family member -->
+        <button id="add-family-btn">Add Family Member</button>
+        <!-- List of family members -->
+        <ul id="family-list"></ul>
       </div>
-      <!--This is content card 3-->
+
+      <!-- This is content card 3 -->
       <div class="card">
       </div>
     </div>
   </main>
 
   <footer>
-    <!--Add a link to your GitHub here-->
+    <!-- Add a link to your GitHub here -->
     <div class="gitHub">
       <b>GitHub</b>
       <p>
@@ -80,34 +90,59 @@
   </footer>
 
   <script>
-    // Initialize the counter variable
+    // Initialize the counter variable for Card 1
     let count = 0;
-
-    // Get the display element to show the counter value
     const counterDisplay = document.getElementById('counter-display');
-
-    // Get the buttons
     const incrementButton = document.getElementById('increment-btn');
     const decrementButton = document.getElementById('decrement-btn');
 
     // Function to update the counter display
     function updateCounter() {
-      counterDisplay.textContent = count; // Set the text of the counter display
+      counterDisplay.textContent = count;
     }
 
-    // Event listener for the increment button
     incrementButton.addEventListener('click', () => {
-      count++; // Increase the counter by 1
-      updateCounter(); // Update the displayed counter value
+      count++;
+      updateCounter();
     });
 
-    // Event listener for the decrement button
     decrementButton.addEventListener('click', () => {
-      count--; // Decrease the counter by 1
-      updateCounter(); // Update the displayed counter value
+      count--;
+      updateCounter();
+    });
+
+    // Family member functionality for Card 2
+    const familyInput = document.getElementById('family-input');
+    const addFamilyButton = document.getElementById('add-family-btn');
+    const familyList = document.getElementById('family-list');
+
+    // Function to add a family member to the list
+    function addFamilyMember() {
+      const familyName = familyInput.value.trim();
+      
+      // If the input is not empty, add the name to the list
+      if (familyName !== "") {
+        const listItem = document.createElement('li');
+        listItem.textContent = familyName;
+        familyList.appendChild(listItem);
+
+        // Clear the input field after adding the family member
+        familyInput.value = '';
+      }
+    }
+
+    // Event listener for the "Add Family Member" button
+    addFamilyButton.addEventListener('click', addFamilyMember);
+
+    // Optional: Allow pressing "Enter" to add the family member
+    familyInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        addFamilyMember();
+      }
     });
   </script>
 
 </body>
 
 </html>
+
