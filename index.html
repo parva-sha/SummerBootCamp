@@ -365,6 +365,7 @@
     let hitCount = 0;
     let survivalTime = 0;
     let gameInterval, objectInterval;
+    let objectSpawnInterval = 2000; // initial interval
 
     // Load high score from localStorage
     let highSurvivalTime = localStorage.getItem('highSurvivalTime');
@@ -426,15 +427,29 @@
     function startGame() {
       if (alive) {
         gameInterval = setInterval(gameLoop, 1000); // Update survival time
-        objectInterval = setInterval(spawnObject, 2000); // Spawn objects every 2 seconds
+        objectInterval = setInterval(spawnObject, objectSpawnInterval); // Spawn objects every 2 seconds
+      }
+    }
+
+    // Increase difficulty
+    function increaseDifficulty() {
+      if (alive) {
+        if (objectSpawnInterval > 500) {
+          objectSpawnInterval -= 200; // Reduce the interval every 10 seconds to make the game harder
+          clearInterval(objectInterval);
+          objectInterval = setInterval(spawnObject, objectSpawnInterval);
+        }
       }
     }
 
     // Listen for shooter movement
     window.addEventListener("keydown", moveShooter);
 
-    // Initialize the game
+    // Start the game
     startGame();
+
+    // Increase difficulty every 10 seconds
+    setInterval(increaseDifficulty, 10000); // Every 10 seconds
   </script>
 </body>
 
