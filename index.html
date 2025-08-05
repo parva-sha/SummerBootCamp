@@ -293,6 +293,35 @@
       alt="homepagesmoothie" id="me" style="width:30%; margin: 0 auto; height: auto; border-radius:20px;">
 
     <div class="content">
+      <!-- Counter Card -->
+      <div class="card">
+        <h1>Javascript Counter</h1>
+        <p>Press the buttons below to add or remove from count</p>
+        <div id="counter-display">0</div> <!-- Display the counter here -->
+        <button id="increment-btn">Increment</button>
+        <button id="decrement-btn">Decrement</button>
+      </div>
+
+      <!-- Family Members Card -->
+      <div class="card">
+        <h1>Family Members</h1>
+        <p>Use the input below to add family members onto a list on the page</p>
+        <input type="text" id="family-input" placeholder="Enter family member's name">
+        <button id="add-family-btn">Add Family Member</button>
+        <ul id="family-list"></ul>
+      </div>
+
+      <!-- Number Guessing Game Card -->
+      <div class="card">
+        <h1>Number Guessing Game</h1>
+        <p>Guess the number between 1 and 100</p>
+        <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
+        <button id="guess-btn">Guess</button>
+        <p id="result-message"></p>
+        <p id="try-count"></p> <!-- Display the number of tries here -->
+        <p id="high-score"></p> <!-- Display high score for tries -->
+      </div>
+
       <!-- Shooting Game Card -->
       <div class="card">
         <h1>Shooting Game</h1>
@@ -302,9 +331,6 @@
         </div>
         <p id="game-result"></p>
         <p id="game-high-score"></p>
-        <button id="play-btn">Play</button>
-        <button id="start-btn" style="display: none;">Start Game</button>
-        <button id="restart-btn" style="display: none;">Restart Game</button>
       </div>
     </div>
   </main>
@@ -328,21 +354,23 @@
   </footer>
 
   <script>
+    // Shooter Game Logic
     const gameContainer = document.querySelector(".game-container");
     const shooter = document.getElementById("shooter");
     const gameResult = document.getElementById("game-result");
     const gameHighScore = document.getElementById("game-high-score");
-    const playBtn = document.getElementById("play-btn");
-    const startBtn = document.getElementById("start-btn");
-    const restartBtn = document.getElementById("restart-btn");
 
     let shooterPosition = 50;
     let alive = true;
     let hitCount = 0;
     let survivalTime = 0;
     let gameInterval, objectInterval, speed = 2000;
-    let highSurvivalTime = localStorage.getItem('highSurvivalTime') || 0;
 
+    // Load high score from localStorage
+    let highSurvivalTime = localStorage.getItem('highSurvivalTime');
+    if (!highSurvivalTime) {
+      highSurvivalTime = 0;
+    }
     gameHighScore.textContent = `High Survival Time: ${highSurvivalTime}s`;
 
     // Move the shooter
@@ -401,38 +429,18 @@
 
     // Start the game
     function startGame() {
-      alive = true;
-      hitCount = 0;
-      survivalTime = 0;
-      gameResult.textContent = '';
-      gameInterval = setInterval(gameLoop, 1000);
-      objectInterval = setInterval(spawnObject, speed);
-      setInterval(increaseDifficulty, 10000); 
+      if (alive) {
+        gameInterval = setInterval(gameLoop, 1000); // Update survival time
+        objectInterval = setInterval(spawnObject, speed); // Spawn objects initially every 2 seconds
+        setInterval(increaseDifficulty, 10000); // Increase speed every 10 seconds
+      }
     }
 
-    // Restart the game
-    function restartGame() {
-      gameResult.textContent = '';
-      startGame();
-      restartBtn.style.display = 'none';
-    }
-
-    // Button Click Event Listeners
-    playBtn.addEventListener('click', () => {
-      startBtn.style.display = 'inline-block';
-      playBtn.style.display = 'none';
-    });
-
-    startBtn.addEventListener('click', () => {
-      startGame();
-      startBtn.style.display = 'none';
-      restartBtn.style.display = 'inline-block';
-    });
-
-    restartBtn.addEventListener('click', restartGame);
-
-    // Initialize
+    // Listen for shooter movement
     window.addEventListener("keydown", moveShooter);
+
+    // Initialize the game
+    startGame();
   </script>
 </body>
 
