@@ -10,6 +10,195 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="./styles/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #444;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px 10%;
+      text-align: center;
+    }
+
+    header ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    header ul li {
+      margin: 0 15px;
+    }
+
+    header ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+
+    header ul li a:hover {
+      color: #ffcc00;
+    }
+
+    /* Main Section Styles */
+    main {
+      padding: 50px 10%;
+      text-align: center;
+    }
+
+    .content {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      width: 30%;
+      min-width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h1 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .card button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .card button:hover {
+      background-color: #ffcc00;
+    }
+
+    /* Counter Display */
+    #counter-display {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    /* Family Members Section */
+    #family-input {
+      padding: 10px;
+      font-size: 1rem;
+      width: 70%;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+    }
+
+    #add-family-btn {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #add-family-btn:hover {
+      background-color: #ffcc00;
+    }
+
+    /* Family List */
+    #family-list {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    #family-list li {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 10px;
+      padding: 8px;
+      background-color: #f4f4f4;
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 30px 10%;
+      text-align: center;
+    }
+
+    footer .gitHub, .my_information, .contact {
+      margin-bottom: 20px;
+    }
+
+    footer a {
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+
+      footer {
+        padding: 20px 5%;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -30,7 +219,6 @@
   </header>
 
   <main>
-
     <!-- Add a picture to your website here. -->
     <img src="https://www.computersciencedegreehub.com/wp-content/uploads/2023/02/shutterstock_535124956-scaled.jpg"
      alt="homepagesmoothie" 
@@ -90,13 +278,12 @@
   </footer>
 
   <script>
-    // Initialize the counter variable for Card 1
+    // JavaScript code for Counter and Family Member List
     let count = 0;
     const counterDisplay = document.getElementById('counter-display');
     const incrementButton = document.getElementById('increment-btn');
     const decrementButton = document.getElementById('decrement-btn');
 
-    // Function to update the counter display
     function updateCounter() {
       counterDisplay.textContent = count;
     }
@@ -111,30 +298,21 @@
       updateCounter();
     });
 
-    // Family member functionality for Card 2
     const familyInput = document.getElementById('family-input');
     const addFamilyButton = document.getElementById('add-family-btn');
     const familyList = document.getElementById('family-list');
 
-    // Function to add a family member to the list
     function addFamilyMember() {
       const familyName = familyInput.value.trim();
-      
-      // If the input is not empty, add the name to the list
       if (familyName !== "") {
         const listItem = document.createElement('li');
         listItem.textContent = familyName;
         familyList.appendChild(listItem);
-
-        // Clear the input field after adding the family member
         familyInput.value = '';
       }
     }
 
-    // Event listener for the "Add Family Member" button
     addFamilyButton.addEventListener('click', addFamilyMember);
-
-    // Optional: Allow pressing "Enter" to add the family member
     familyInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         addFamilyMember();
@@ -145,4 +323,3 @@
 </body>
 
 </html>
-
