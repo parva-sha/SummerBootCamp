@@ -248,8 +248,13 @@
         <ul id="family-list"></ul>
       </div>
 
-      <!-- This is content card 3 -->
+      <!-- This is content card 3 (Number Guessing Game) -->
       <div class="card">
+        <h1>Number Guessing Game</h1>
+        <p>Guess the number between 1 and 100</p>
+        <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
+        <button id="guess-btn">Guess</button>
+        <p id="result-message"></p>
       </div>
     </div>
   </main>
@@ -295,5 +300,43 @@
 
     decrementButton.addEventListener('click', () => {
       count--;
-      updateCounter
+      updateCounter();
+    });
 
+    // Family members list logic
+    const familyInput = document.getElementById('family-input');
+    const addFamilyBtn = document.getElementById('add-family-btn');
+    const familyList = document.getElementById('family-list');
+
+    addFamilyBtn.addEventListener('click', () => {
+      const familyMember = familyInput.value;
+      if (familyMember) {
+        const listItem = document.createElement('li');
+        listItem.textContent = familyMember;
+        familyList.appendChild(listItem);
+        familyInput.value = ''; // Clear the input
+      }
+    });
+
+    // Number Guessing Game logic
+    const guessInput = document.getElementById('guess-input');
+    const guessBtn = document.getElementById('guess-btn');
+    const resultMessage = document.getElementById('result-message');
+
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+    guessBtn.addEventListener('click', () => {
+      const userGuess = parseInt(guessInput.value);
+      if (userGuess < randomNumber) {
+        resultMessage.textContent = 'Too low! Try again.';
+      } else if (userGuess > randomNumber) {
+        resultMessage.textContent = 'Too high! Try again.';
+      } else {
+        resultMessage.textContent = 'Correct! You guessed the number!';
+      }
+      guessInput.value = ''; // Clear the input after guessing
+    });
+  </script>
+</body>
+
+</html>
