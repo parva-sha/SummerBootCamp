@@ -30,7 +30,7 @@
 
     h1 {
       font-size: 2.5rem;
-      color: white;
+      color: white; /* Ensuring the name color is white */
     }
 
     /* Header Styles */
@@ -364,7 +364,8 @@
     let alive = true;
     let hitCount = 0;
     let survivalTime = 0;
-    let gameInterval, objectInterval, speed = 2000;
+    let gameInterval, objectInterval;
+    let objectSpawnInterval = 2000; // initial interval
 
     // Load high score from localStorage
     let highSurvivalTime = localStorage.getItem('highSurvivalTime');
@@ -395,10 +396,12 @@
         object.remove();
         if (parseInt(object.style.left) >= shooterPosition - 5 && parseInt(object.style.left) <= shooterPosition + 5) {
           hitCount++;
-          alive = false;
-          gameResult.textContent = `Game Over! You were hit!`;
-          clearInterval(gameInterval);
-          clearInterval(objectInterval);
+          if (hitCount >= 3) {
+            alive = false;
+            gameResult.textContent = `Game Over! You were hit 3 times.`;
+            clearInterval(gameInterval);
+            clearInterval(objectInterval);
+          }
         }
       });
     }
@@ -420,27 +423,33 @@
       }
     }
 
-    // Increase difficulty every 10 seconds
-    function increaseDifficulty() {
-      speed -= 100;
-      clearInterval(objectInterval);
-      objectInterval = setInterval(spawnObject, speed);
-    }
-
     // Start the game
     function startGame() {
       if (alive) {
         gameInterval = setInterval(gameLoop, 1000); // Update survival time
-        objectInterval = setInterval(spawnObject, speed); // Spawn objects initially every 2 seconds
-        setInterval(increaseDifficulty, 10000); // Increase speed every 10 seconds
+        objectInterval = setInterval(spawnObject, objectSpawnInterval); // Spawn objects every 2 seconds
+      }
+    }
+
+    // Increase difficulty
+    function increaseDifficulty() {
+      if (alive) {
+        if (objectSpawnInterval > 500) {
+          objectSpawnInterval -= 200; // Reduce the interval every 10 seconds to make the game harder
+          clearInterval(objectInterval);
+          objectInterval = setInterval(spawnObject, objectSpawnInterval);
+        }
       }
     }
 
     // Listen for shooter movement
     window.addEventListener("keydown", moveShooter);
 
-    // Initialize the game
+    // Start the game
     startGame();
+
+    // Increase difficulty every 10 seconds
+    setInterval(increaseDifficulty, 10000); // Every 10 seconds
   </script>
 </body>
 
