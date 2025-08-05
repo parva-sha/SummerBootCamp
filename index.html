@@ -293,36 +293,7 @@
       alt="homepagesmoothie" id="me" style="width:30%; margin: 0 auto; height: auto; border-radius:20px;">
 
     <div class="content">
-      <!-- Counter Card -->
-      <div class="card">
-        <h1>Javascript Counter</h1>
-        <p>Press the buttons below to add or remove from count</p>
-        <div id="counter-display">0</div> <!-- Display the counter here -->
-        <button id="increment-btn">Increment</button>
-        <button id="decrement-btn">Decrement</button>
-      </div>
-
-      <!-- Family Members Card -->
-      <div class="card">
-        <h1>Family Members</h1>
-        <p>Use the input below to add family members onto a list on the page</p>
-        <input type="text" id="family-input" placeholder="Enter family member's name">
-        <button id="add-family-btn">Add Family Member</button>
-        <ul id="family-list"></ul>
-      </div>
-
-      <!-- Number Guessing Game Card -->
-      <div class="card">
-        <h1>Number Guessing Game</h1>
-        <p>Guess the number between 1 and 100</p>
-        <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
-        <button id="guess-btn">Guess</button>
-        <p id="result-message"></p>
-        <p id="try-count"></p> <!-- Display the number of tries here -->
-        <p id="high-score"></p> <!-- Display high score for tries -->
-      </div>
-
-      <!-- Shooting Game Card -->
+      <!-- Shooter Game Card -->
       <div class="card">
         <h1>Shooting Game</h1>
         <p>Use the left and right arrow keys to dodge incoming objects! Survive for as long as possible!</p>
@@ -331,14 +302,41 @@
         </div>
         <p id="game-result"></p>
         <p id="game-high-score"></p>
+        <button id="play-btn">Play Game</button>
+        <button id="restart-btn" style="display:none;">Restart Game</button>
+      </div>
+
+      <!-- Number Guessing Game Card -->
+      <div class="card">
+        <h1>Number Guessing Game</h1>
+        <p>Guess the number between 1 and 100</p>
+        <input type="number" id="guess-input" min="1" max="100" />
+        <button id="guess-btn">Guess</button>
+        <p id="guess-result"></p>
+      </div>
+
+      <!-- Family Member Game Card -->
+      <div class="card">
+        <h1>Family Member Game</h1>
+        <p>Add family members and see the list below:</p>
+        <input type="text" id="family-input" placeholder="Add a family member" />
+        <button id="add-family-btn">Add</button>
+        <ul id="family-list"></ul>
+      </div>
+
+      <!-- JavaScript Counter Card -->
+      <div class="card">
+        <h1>JavaScript Counter</h1>
+        <p>Click the button to increase the counter:</p>
+        <div id="counter-display">0</div>
+        <button id="counter-btn">Increase Counter</button>
       </div>
     </div>
   </main>
 
   <footer>
     <div class="gitHub">
-      <b>GitHub</b>
-      <p><a href="">My GitHub</a></p>
+      <p><b>GitHub</b> - <a href="https://github.com/" target="_blank">My GitHub</a></p>
     </div>
     <div class="my_information">
       <p>Social Media</p>
@@ -359,6 +357,8 @@
     const shooter = document.getElementById("shooter");
     const gameResult = document.getElementById("game-result");
     const gameHighScore = document.getElementById("game-high-score");
+    const playButton = document.getElementById("play-btn");
+    const restartButton = document.getElementById("restart-btn");
 
     let shooterPosition = 50;
     let alive = true;
@@ -401,6 +401,7 @@
             gameResult.textContent = `Game Over! You were hit 3 times.`;
             clearInterval(gameInterval);
             clearInterval(objectInterval);
+            restartButton.style.display = "inline-block"; // Show restart button
           }
         }
       });
@@ -425,10 +426,14 @@
 
     // Start the game
     function startGame() {
-      if (alive) {
-        gameInterval = setInterval(gameLoop, 1000); // Update survival time
-        objectInterval = setInterval(spawnObject, objectSpawnInterval); // Spawn objects every 2 seconds
-      }
+      alive = true;
+      survivalTime = 0;
+      hitCount = 0;
+      gameResult.textContent = `Survival Time: 0s`;
+      restartButton.style.display = "none"; // Hide restart button
+      playButton.style.display = "none"; // Hide play button
+      gameInterval = setInterval(gameLoop, 1000); // Update survival time
+      objectInterval = setInterval(spawnObject, objectSpawnInterval); // Spawn objects every 2 seconds
     }
 
     // Increase difficulty
@@ -442,15 +447,75 @@
       }
     }
 
+    // Restart game
+    function restartGame() {
+      clearInterval(gameInterval);
+      clearInterval(objectInterval);
+      startGame(); // Start a new game
+    }
+
     // Listen for shooter movement
     window.addEventListener("keydown", moveShooter);
 
-    // Start the game
-    startGame();
+    // Button event listeners
+    playButton.addEventListener("click", startGame);
+    restartButton.addEventListener("click", restartGame);
 
     // Increase difficulty every 10 seconds
     setInterval(increaseDifficulty, 10000); // Every 10 seconds
+
+
+    // Number Guessing Game Logic
+    const guessInput = document.getElementById("guess-input");
+    const guessButton = document.getElementById("guess-btn");
+    const guessResult = document.getElementById("guess-result");
+
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+    guessButton.addEventListener("click", function () {
+      const userGuess = parseInt(guessInput.value);
+
+      if (userGuess === randomNumber) {
+        guessResult.textContent = "You guessed it right! 🎉";
+      } else if (userGuess < randomNumber) {
+        guessResult.textContent = "Too low! Try again!";
+      } else if (userGuess > randomNumber) {
+        guessResult.textContent = "Too high! Try again!";
+      }
+    });
+
+
+    // Family Member Game Logic
+    const familyInput = document.getElementById("family-input");
+    const addFamilyButton = document.getElementById("add-family-btn");
+    const familyList = document.getElementById("family-list");
+
+    addFamilyButton.addEventListener("click", function () {
+      const familyMember = familyInput.value.trim();
+
+      if (familyMember !== "") {
+        const listItem = document.createElement("li");
+        listItem.textContent = familyMember;
+        familyList.appendChild(listItem);
+        familyInput.value = ""; // Clear the input field
+      }
+    });
+
+
+    // JavaScript Counter Logic
+    const counterDisplay = document.getElementById("counter-display");
+    const counterButton = document.getElementById("counter-btn");
+
+    let counter = 0;
+
+    counterButton.addEventListener("click", function () {
+      counter++;
+      counterDisplay.textContent = counter;
+    });
+
   </script>
+
 </body>
 
 </html>
+
