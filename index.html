@@ -8,29 +8,37 @@
   <meta name="description" content="Landing page for Parva Shah Fun Site">
   <title>Home Page</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <link rel="stylesheet" href="./styles/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Global styles */
+    /* Global Styles */
     body {
       font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
+      background-color: #f4f7fc;
       color: #333;
+      line-height: 1.6;
+      box-sizing: border-box;
+    }
+
+    h1, h2 {
+      color: #333;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
 
     h1 {
-      font-size: 2rem;
-      color: white;
+      font-size: 2.5rem;
     }
 
+    /* Header Styles */
     header {
-      background-color: #333;
+      background-color: #2c3e50;
       color: white;
       padding: 20px 10%;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     header ul {
@@ -38,69 +46,75 @@
       padding: 0;
       display: flex;
       justify-content: center;
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     header ul li {
-      margin: 0 15px;
+      margin: 0 25px;
     }
 
     header ul li a {
       text-decoration: none;
       color: white;
       font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
     }
 
     header ul li a:hover {
       color: #ffcc00;
     }
 
-    /* Main Section Styles */
+    /* Main Section */
     main {
       padding: 50px 10%;
       text-align: center;
+      background-color: #f4f7fc;
     }
 
     .content {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 30px;
+      margin-top: 30px;
     }
 
+    /* Card Styles */
     .card {
-      background-color: #fff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
-      padding: 20px;
-      width: 30%;
-      min-width: 250px;
+      padding: 30px;
+      width: 32%;
+      min-width: 280px;
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     }
 
     .card h1 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
+      font-size: 1.75rem;
+      margin-bottom: 20px;
       color: #333;
     }
 
     .card p {
       font-size: 1rem;
       color: #666;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .card button {
-      background-color: #333;
+      background-color: #2c3e50;
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 1rem;
+      padding: 12px 25px;
+      font-size: 1.1rem;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
@@ -110,17 +124,17 @@
       background-color: #ffcc00;
     }
 
-    /* Counter Display */
+    /* Counter Section */
     #counter-display {
       font-size: 2rem;
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       color: #333;
     }
 
-    /* Family Members Section */
+    /* Family Member Section */
     #family-input {
-      padding: 10px;
+      padding: 12px;
       font-size: 1rem;
       width: 70%;
       border-radius: 5px;
@@ -129,10 +143,10 @@
     }
 
     #add-family-btn {
-      background-color: #333;
+      background-color: #2c3e50;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 25px;
       font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
@@ -148,42 +162,60 @@
       list-style-type: none;
       padding: 0;
       margin-top: 20px;
+      color: #555;
     }
 
     #family-list li {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 10px;
-      padding: 8px;
+      font-size: 1.1rem;
       background-color: #f4f4f4;
+      margin: 10px 0;
+      padding: 12px;
       border-radius: 5px;
       text-align: left;
     }
 
-    /* Footer Styles */
+    /* Footer Section */
     footer {
-      background-color: #333;
+      background-color: #2c3e50;
       color: white;
-      padding: 30px 10%;
+      padding: 40px 10%;
       text-align: center;
+      margin-top: 60px;
     }
 
     footer .gitHub, .my_information, .contact {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     footer a {
       color: #ffcc00;
       text-decoration: none;
       font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
     }
 
     footer a:hover {
       color: white;
     }
 
+    /* Social Media Icons */
+    footer a img {
+      width: 40px;
+      margin: 0 15px;
+      transition: transform 0.3s ease;
+    }
+
+    footer a:hover img {
+      transform: scale(1.2);
+    }
+
     /* Responsive styles */
     @media (max-width: 768px) {
+      header {
+        padding: 20px 5%;
+      }
+
       .content {
         flex-direction: column;
         align-items: center;
@@ -205,75 +237,55 @@
   <header>
     <h1>Parva Shah</h1>
     <ul>
-      <li>
-        <a href="./index.html">
-          Home
-        </a>
-      </li>
-      <li>
-        <a href="./pages/about.html">
-          ABOUT ME
-        </a>
-      </li>
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./pages/about.html">ABOUT ME</a></li>
     </ul>
   </header>
 
   <main>
-    <!-- Add a picture to your website here. -->
     <img src="https://www.computersciencedegreehub.com/wp-content/uploads/2023/02/shutterstock_535124956-scaled.jpg"
-     alt="homepagesmoothie" 
-     id="me"
-     style="width:30%; margin: 0 auto; height: auto; border-radius:20px;">
+      alt="homepagesmoothie" id="me" style="width:30%; margin: 0 auto; height: auto; border-radius:20px;">
 
     <div class="content">
-      <!-- This is content card 1 -->
+      <!-- Counter Card -->
       <div class="card">
-        <h1>Javascript counter</h1>
+        <h1>Javascript Counter</h1>
         <p>Press the buttons below to add or remove from count</p>
-        <div id="counter-display">0</div> <!-- Display the counter here -->
-        <!-- Buttons to control counter -->
+        <div id="counter-display">0</div>
         <button id="increment-btn">Increment</button>
         <button id="decrement-btn">Decrement</button>
       </div>
 
-      <!-- This is content card 2 -->
+      <!-- Family Member Card -->
       <div class="card">
-        <h1>Family members</h1>
+        <h1>Family Members</h1>
         <p>Use the input below to add family members onto a list on the page</p>
-        <!-- Input field for family member -->
         <input type="text" id="family-input" placeholder="Enter family member's name">
-        <!-- Button to add family member -->
         <button id="add-family-btn">Add Family Member</button>
-        <!-- List of family members -->
         <ul id="family-list"></ul>
       </div>
 
-      <!-- This is content card 3 (Number Guessing Game) -->
+      <!-- Number Guessing Game Card -->
       <div class="card">
         <h1>Number Guessing Game</h1>
         <p>Guess the number between 1 and 100</p>
         <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
         <button id="guess-btn">Guess</button>
         <p id="result-message"></p>
-        <p id="try-count"></p> <!-- Display the number of tries here -->
+        <p id="try-count"></p>
       </div>
     </div>
   </main>
 
   <footer>
-    <!-- Add a link to your GitHub here -->
     <div class="gitHub">
       <b>GitHub</b>
-      <p>
-        <a href="">My GitHub</a>
-      </p>
+      <p><a href="#">My GitHub</a></p>
     </div>
     <div class="my_information">
       <p>Social Media</p>
-      <br>
       <a href="https://www.youtube.com/" target="_blank"><img src="https://s.ytimg.com/yts/img/favicon_48-vfl1s0rGh.png" alt="youtube"></a>
-      <a href="https://www.instagram.com/" target="_blank"><img src="./images/icons8-instagram-48.png"
-          alt="instagram"></a>
+      <a href="https://www.instagram.com/" target="_blank"><img src="./images/icons8-instagram-48.png" alt="instagram"></a>
       <a href="https://twitter.com/" target="_blank"><img src="./images/icons8-twitter-48.png" alt="twitter"></a>
     </div>
     <div class="contact">
@@ -284,7 +296,6 @@
   </footer>
 
   <script>
-    // JavaScript code for Counter and Family Member List
     let count = 0;
     const counterDisplay = document.getElementById('counter-display');
     const incrementButton = document.getElementById('increment-btn');
@@ -330,7 +341,7 @@
 
     guessBtn.addEventListener('click', () => {
       const userGuess = parseInt(guessInput.value);
-      attempts++; // Increment attempts on every guess
+      attempts++;
 
       if (userGuess < randomNumber) {
         resultMessage.textContent = 'Too low! Try again.';
@@ -340,9 +351,10 @@
         resultMessage.textContent = 'Correct! You guessed the number!';
         tryCountDisplay.textContent = `It took you ${attempts} tries.`;
       }
-      guessInput.value = ''; // Clear the input after guessing
+      guessInput.value = '';
     });
   </script>
 </body>
 
 </html>
+
