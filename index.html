@@ -327,9 +327,10 @@
       <!-- JavaScript Counter Card -->
       <div class="card">
         <h1>JavaScript Counter</h1>
-        <p>Click the button to increase the counter:</p>
+        <p>Click the buttons to increase or decrease the counter:</p>
         <div id="counter-display">0</div>
         <button id="counter-btn">Increase Counter</button>
+        <button id="decrease-btn">Decrease Counter</button>
       </div>
     </div>
   </main>
@@ -505,11 +506,18 @@
     // JavaScript Counter Logic
     const counterDisplay = document.getElementById("counter-display");
     const counterButton = document.getElementById("counter-btn");
+    const decreaseButton = document.getElementById("decrease-btn");
 
     let counter = 0;
 
     counterButton.addEventListener("click", function () {
       counter++;
+      counterDisplay.textContent = counter;
+    });
+
+    // Decrease counter functionality
+    decreaseButton.addEventListener("click", function () {
+      counter--;
       counterDisplay.textContent = counter;
     });
 
