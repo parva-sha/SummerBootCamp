@@ -1,64 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Landing page for all course work to be done in WDD 230 at BYU Idaho">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Landing page for all course work to be done in WDD 230 at BYU Idaho" />
     <title>parva-sha Fun Site</title>
     <script src="../scripts/about.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="../styles/about.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/about.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7fc;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      header {
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px 10%;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      header ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+      }
+
+      header ul li {
+        margin: 0 25px;
+      }
+
+      header ul li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+      }
+
+      header ul li a:hover {
+        color: #ffcc00;
+      }
+
+      main {
+        padding: 50px 10%;
+        text-align: center;
+        background-color: #f4f7fc;
+      }
+
+      .info p {
+        font-size: 1.2rem;
+        color: #555;
+      }
+
+      .info ul {
+        text-align: left;
+        max-width: 600px;
+        margin: 0 auto 40px auto;
+        color: #555;
+        font-size: 1.1rem;
+        list-style: disc inside;
+      }
+
+      .images-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 30px;
+      }
+
+      .image-box {
+        max-width: 300px;
+        text-align: center;
+      }
+
+      .image-box img {
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+
+      .image-box p {
+        margin-top: 10px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      footer {
+        background-color: #2c3e50;
+        color: white;
+        padding: 40px 10%;
+        text-align: center;
+        margin-top: 60px;
+      }
+
+      footer a {
+        color: #ffcc00;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+      }
+
+      footer a:hover {
+        color: white;
+      }
+
+      footer a img {
+        width: 40px;
+        margin: 0 15px;
+        transition: transform 0.3s ease;
+      }
+
+      footer a:hover img {
+        transform: scale(1.2);
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 20px 5%;
+        }
+
+        footer {
+          padding: 20px 5%;
+        }
+
+        .images-container {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .image-box {
+          max-width: 100%;
+        }
+      }
+    </style>
 </head>
 <body>
-    <div class="portal">
-        <header>
-            <h1>Your Name Here</h1>
-            <ul>
-                <li>
-                    <a href="../index.html">
-                        HOME
-                    </a>
-                </li>
-                <li>
-                    <a href="./pages/about.html">
-                        ABOUT ME
-                    </a>
-                </li>
-            </ul>
-        </header>
+  <div class="portal">
+    <header>
+      <h1>Parva Shah</h1>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="./pages/about.html">About Me</a></li>
+        <li><a href="./pages/settings.html">Settings</a></li>
+      </ul>
+    </header>
 
-        <main>
-            <div class="content">
-            <div class="info">
-                <p>
-                    Thank you for visiting my fun site!
-                </p>
-        </main>
+    <main>
+      <div class="content">
+        <div class="info">
+          <p>Thank you for visiting my fun site!</p>
+          <ul>
+            <li>I want to work at Melaleuca when I am older.</li>
+            <li>I love coding.</li>
+            <li>I like playing chess.</li>
+          </ul>
 
-        <footer>
-            <!--Add a link to your GitHub here-->
-            <div class="gitHub">
-                <b>GitHub</b>
-                <p>
-                    <a href="">My GitHub</a>
-                </p>
+          <div class="images-container">
+            <div class="image-box">
+              <img src="https://cdnsc1.melaleuca.com/na/images/about-us/Melaleuca-OG.jpg" alt="Melaleuca Office Building" />
             </div>
-            <div class="my_information">
-                <p>Social Media</p>
-                <br>
-                <a href="https://www.facebook.com/" target="_blank"><img src="../images/icons8-facebook-48.png" alt="facebook"></a>
-                <a href="https://www.instagram.com/" target="_blank"><img src="../images/icons8-instagram-48.png" alt="instagram"></a>
-                <a href="https://twitter.com/" target="_blank"><img src="../images/icons8-twitter-48.png" alt="twitter"></a>
+            <div class="image-box">
+              <img src="https://neersyde.com/wp-content/uploads/2016/04/Computer_Science.jpg" alt="Coding" />
             </div>
-            <div class="contact">
-                <b>Contact Me</b>
-                <p>Email: ADD EMAIL HERE</p>
-                <p>Phone: ADD NUMBER HERE</p>
+            <div class="image-box">
+              <img src="https://thumbs.dreamstime.com/b/fiery-icy-chess-battle-surreal-duel-kings-knights-mysterious-landscape-377150796.jpg" alt="Chess Battle" />
             </div>
-        </footer>
-    </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <!--Add a link to your GitHub here-->
+      <div class="gitHub">
+        <b>GitHub</b>
+        <p>
+          <a href="">My GitHub</a>
+        </p>
+      </div>
+      <div class="my_information">
+        <p>Social Media</p>
+        <br />
+        <a href="https://youtube.com/" target="_blank"
+          ><img
+            src="https://s.ytimg.com/yts/img/favicon_48-vfl1s0rGh.png"
+            alt="YouTube"
+        /></a>
+        <a href="https://www.instagram.com/" target="_blank"
+          ><img src="../images/icons8-instagram-48.png" alt="Instagram" /></a
+        >
+        <a href="https://twitter.com/" target="_blank"
+          ><img src="../images/icons8-twitter-48.png" alt="Twitter" /></a
+        >
+      </div>
+      <div class="contact">
+        <b>Contact Me</b>
+        <p>Email: parva201009@gmail.com</p>
+        <p>Phone: 208-747-6464</p>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
+

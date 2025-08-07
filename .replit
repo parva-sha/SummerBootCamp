@@ -1,0 +1,20 @@
+modules = ["web", "nodejs-20"]
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "serve website"
+
+[[workflows.workflow]]
+name = "serve website"
+mode = "sequential"
+author = 46066355
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx http-server . -p 8000"
+
+[[ports]]
+localPort = 8000
+externalPort = 80
